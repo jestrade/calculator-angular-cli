@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   resultado:number = 0;
+  estaAutenticado:boolean = false;
+
   obtenerNumero(numero: number) {
     if (this.resultado === 0) {
       this.resultado = numero;
@@ -22,5 +24,8 @@ export class AppComponent {
   }
   obtenerResultado() {
     this.resultado = 0;
+  }
+  autenticar(){
+    this.estaAutenticado = !this.estaAutenticado;
   }
 }
