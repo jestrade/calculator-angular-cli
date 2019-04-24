@@ -1,58 +1,62 @@
-<mat-toolbar color="primary">Calculadora</mat-toolbar>
+<mat-toolbar color="primary">
+  <div class="container">
+    Calculadora
+  </div>
+</mat-toolbar>
 
-<div *ngIf="estaAutenticado then autenticado; else noautenticado"></div>
+<div class="container">
+  <div *ngIf="estaAutenticado then autenticado; else noautenticado"></div>
 
+    <ng-template #noautenticado>
+    <h2>Iniciar sesión</h2>
+    <p><button mat-raised-button color="primary"
+      (click)="autenticar()"
+      >Entrar</button></p>
+    </ng-template>
 
-<ng-template #noautenticado>
-<p>Inicie sesión</p>
-  <button mat-raised-button color="primary"
-  (click)="autenticar()"
-  >Entrar</button>
-</ng-template>
+    <ng-template #autenticado>
+      <h2>Bienvenid@ a la Calculadora</h2>
+      <p><button mat-raised-button color="primary"
+      (click)="autenticar()"
+      >Salir</button></p>
+      
 
-<ng-template #autenticado>
-  <p>Bienvenid@ a la Calculadora
-  <button mat-raised-button color="primary"
-  (click)="autenticar()"
-  >Salir</button>
-  </p>
+      <mat-card class="card">
+        <form class="form">
+          <mat-form-field class="field">
+            <input matInput class="input"
+              type="number" 
+              name="resultado"
+              [(ngModel)]="resultado">
+          </mat-form-field>
+        </form>
+      
+      
+        <button mat-mini-fab color="primary"
+          *ngFor="let number of [1,2,3,4,5,6,7,8,9,0]"
+          (click)="obtenerNumero(number)"
+          >
+          {{number}}
+        </button>
+        <br />
+      
+        <button mat-mini-fab color="primary"
+        *ngFor="let op of ['+','-','*','/']"
+        (click)="obtenerOperador('op')"
+        >{{op}}
+        </button>
+        <br />
+      
+        <button mat-mini-fab color="warn"
+        (click)="limpiar()"
+        >C</button>
+      
+        <button mat-mini-fab color="primary"
+        (click)="obtenerResultado()"
+        >=</button>
+      </mat-card>
 
-  <mat-card class="card">
-    <form class="form">
-      <mat-form-field class="field">
-        <input matInput class="input"
-          type="number" 
-          name="resultado"
-          [(ngModel)]="resultado">
-      </mat-form-field>
-    </form>
-  
-  
-    <button mat-mini-fab color="primary"
-      *ngFor="let number of [1,2,3,4,5,6,7,8,9,0]"
-      (click)="obtenerNumero(number)"
-      >
-      {{number}}
-    </button>
-    <br />
-  
-    <button mat-mini-fab color="primary"
-    *ngFor="let op of ['+','-','*','/']"
-    (click)="obtenerOperador('op')"
-    >{{op}}
-    </button>
-    <br />
-  
-    <button mat-mini-fab color="warn"
-    (click)="limpiar()"
-    >C</button>
-  
-    <button mat-mini-fab color="primary"
-    (click)="obtenerResultado()"
-    >=</button>
-  </mat-card>
-
-</ng-template>
-
+    </ng-template>
+</div>
 
 <router-outlet></router-outlet>
